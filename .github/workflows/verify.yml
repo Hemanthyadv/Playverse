@@ -1,5 +1,9 @@
 name: Verify Playverse
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower", "fix/phase-audit-build-and-tests", "phase-6/personal-progress"]
