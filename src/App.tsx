@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Archive, CalendarDays, Check, Game
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import SizeItUp from "./games/SizeItUp";
 import HigherOrLower from "./games/HigherOrLower";
+import DailyQuiz from "./games/DailyQuiz";
 import DailyChallengePage from "./pages/DailyChallengePage";
 import ArchivePage from "./pages/ArchivePage";
 import ProgressPage from "./pages/ProgressPage";
@@ -11,7 +12,7 @@ type Game = { id: string; title: string; type: string; description: string; tone
 const games: Game[] = [
   { id: "01", title: "Size It Up", type: "ESTIMATION", description: "Trust your eye. Estimate the size of everyday things.", tone: "lilac", mark: "◒", status: "PLAY NOW" },
   { id: "02", title: "Higher or Lower", type: "NUMBER SENSE", description: "Make the right call before the next number appears.", tone: "peach", mark: "↗", status: "PLAY NOW" },
-  { id: "03", title: "Daily Quiz", type: "TRIVIA", description: "A few curious questions to give your brain a workout.", tone: "lime", mark: "✳", status: "PLANNED" },
+  { id: "03", title: "Daily Quiz", type: "TRIVIA", description: "Five curious questions, instant feedback, and tiny facts to learn.", tone: "lime", mark: "✳", status: "PLAY NOW" },
 ];
 const navItems = [
   { to: "/", label: "Home", icon: Home, end: true },
@@ -38,7 +39,11 @@ function Header() {
   </header>;
 }
 function Footer() {
-  return <footer className="site-footer"><Link className="brand" to="/"><span className="brand-icon"><Gamepad2 size={17}/></span><span>playverse<span className="lime-text">.</span></span></Link><span>Made for the curious. © {new Date().getFullYear()} Playverse</span><Link to="/about">Built for curious minds</Link></footer>;
+  return <footer className="site-footer">
+    <div className="footer-brand-block"><Link className="brand" to="/"><span className="brand-icon"><Gamepad2 size={17}/></span><span>playverse<span className="lime-text">.</span></span></Link><span>Made for the curious. © {new Date().getFullYear()} Playverse</span></div>
+    <div className="footer-support"><span className="footer-kicker">ENJOYING PLAYVERSE?</span><strong>Support a tiny independent project.</strong><p>If you had fun, a tip would mean a lot. No pressure — playing is always free.</p><span className="support-coming-soon">☕ Buy me a coffee link coming soon</span></div>
+    <div className="footer-links"><Link to="/about">About Playverse</Link><a href="https://github.com/Hemanthyadv" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/butham-hemanth/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+  </footer>;
 }
 function Eyebrow({children}:{children:ReactNode}) { return <div className="eyebrow"><span className="pulse-dot"/>{children}</div>; }
 function GameCard({game}:{game:Game}) {
@@ -46,7 +51,7 @@ function GameCard({game}:{game:Game}) {
     <div className="card-top"><span>{game.id} / GAME</span><span className="card-arrow"><ArrowUpRight size={17}/></span></div>
     <div className={`game-art ${game.tone}`} aria-hidden="true"><span>{game.mark}</span><i/><i/><i/></div>
     <div className="game-type">{game.type}</div><h3>{game.title}</h3><p>{game.description}</p>
-    <div className="card-status"><span/> {game.status}</div>{game.id === "01" && <Link className="card-play-link" to="/games/size-it-up">Play now <ArrowRight size={14}/></Link>}{game.id === "02" && <Link className="card-play-link" to="/games/higher-or-lower">Play now <ArrowRight size={14}/></Link>}
+    <div className="card-status"><span/> {game.status}</div>{game.id === "01" && <Link className="card-play-link" to="/games/size-it-up">Play now <ArrowRight size={14}/></Link>}{game.id === "02" && <Link className="card-play-link" to="/games/higher-or-lower">Play now <ArrowRight size={14}/></Link>}{game.id === "03" && <Link className="card-play-link" to="/games/daily-quiz">Play now <ArrowRight size={14}/></Link>}
   </article>;
 }
 function HomePage() {
@@ -78,10 +83,10 @@ function PageIntro({eyebrow,title,description}:{eyebrow:string;title:string;desc
 function GamesPage() {
   const [query,setQuery] = useState("");
   const filtered = games.filter(game => `${game.title} ${game.type} ${game.description}`.toLowerCase().includes(query.toLowerCase()));
-  return <main className="inner-page"><PageIntro eyebrow="THE PLAYGROUND" title="Find your next favourite." description="A growing collection of small games for curious minds. Try Size It Up, our first playable estimation game."/>
+  return <main className="inner-page"><PageIntro eyebrow="THE PLAYGROUND" title="Find your next favourite." description="A growing collection of small games for curious minds. Try Size It Up, Higher or Lower, and Daily Quiz — all playable now."/>
     <label className="search-box"><Search size={17}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search games..." aria-label="Search games"/></label>
     {filtered.length ? <div className="games-grid">{filtered.map(game=><GameCard key={game.id} game={game}/>)}</div> : <div className="empty-state"><Search size={25}/><h2>No games found</h2><p>Try another title or search term.</p><button className="secondary-button" onClick={()=>setQuery("")}>Clear search</button></div>}
-    <p className="page-footnote">Game cards marked planned or in development are previews and cannot be played yet.</p>
+    <p className="page-footnote">More games are on the way. Every game marked PLAY NOW is ready to play.</p>
   </main>;
 }
 function DailyPage() { return <DailyChallengePage/>; }
@@ -96,6 +101,6 @@ function NotFoundPage() {
 }
 export default function App() {
   return <div className="app-shell"><Header/><Routes>
-    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/games/size-it-up" element={<SizeItUp/>}/><Route path="/games/higher-or-lower" element={<HigherOrLower/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/progress" element={<ProgressPage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
+    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/games/size-it-up" element={<SizeItUp/>}/><Route path="/games/higher-or-lower" element={<HigherOrLower/>}/><Route path="/games/daily-quiz" element={<DailyQuiz/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/progress" element={<ProgressPage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
   </Routes><Footer/></div>;
 }

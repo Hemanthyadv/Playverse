@@ -1,7 +1,7 @@
 export type SavedRound = { object: string; guess: number; actual: number; score: number; errorPercent: number };
 export type SavedGame = {
   id: string;
-  gameId?: "size-it-up" | "higher-or-lower";
+  gameId?: "size-it-up" | "higher-or-lower" | "daily-quiz";
   gameTitle?: string;
   challengeId: string;
   mode: "daily" | "practice";
@@ -38,7 +38,7 @@ export function readGameHistory(): SavedGame[] {
     return parsed.filter((item): item is SavedGame =>
       !!item &&
       typeof item.id === "string" &&
-      (item.gameId === undefined || item.gameId === "size-it-up" || item.gameId === "higher-or-lower") &&
+      (item.gameId === undefined || item.gameId === "size-it-up" || item.gameId === "higher-or-lower" || item.gameId === "daily-quiz") &&
       (item.gameTitle === undefined || typeof item.gameTitle === "string") &&
       typeof item.challengeId === "string" &&
       (item.mode === "daily" || item.mode === "practice") &&
