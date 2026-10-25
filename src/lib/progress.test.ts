@@ -49,6 +49,27 @@ describe("local progress summary", () => {
     });
   });
 
+  it("excludes trivia and number-guessing rounds from estimation accuracy", () => {
+    const estimation = game("estimate", "2026-10-20", "practice", 162);
+    const quiz: SavedGame = {
+      ...game("quiz", "2026-10-20", "practice", 80),
+      gameId: "daily-quiz",
+      gameTitle: "Daily Quiz",
+      rounds: [{ object: "Which planet is red?", guess: 0, actual: 1, score: 0, errorPercent: 100 }],
+    };
+    const higherOrLower: SavedGame = {
+      ...game("numbers", "2026-10-21", "practice", 20),
+      gameId: "higher-or-lower",
+      gameTitle: "Higher or Lower",
+      rounds: [{ object: "Round 1", guess: 1, actual: 2, score: 0, errorPercent: 100 }],
+    };
+
+    expect(summarizeProgress([estimation, quiz, higherOrLower])).toMatchObject({
+      gamesPlayed: 3,
+      averageErrorPercent: 13,
+    });
+  });
+
   it("unlocks achievements only when their stated thresholds are met", () => {
     const achievements = progressAchievements(summarizeProgress([game("p1", "2026-10-20", "practice", 450)]));
     expect(achievements.find((item) => item.id === "first-game")?.unlocked).toBe(true);
