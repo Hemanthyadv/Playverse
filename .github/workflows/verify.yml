@@ -2,7 +2,7 @@ name: Verify Playverse
 
 on:
   pull_request:
-    branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower"]
+    branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower", "fix/phase-audit-build-and-tests", "phase-6/personal-progress"]
   push:
     branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower"]
   workflow_dispatch:
