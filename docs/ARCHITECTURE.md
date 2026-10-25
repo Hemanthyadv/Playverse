@@ -65,4 +65,4 @@ A backend is justified when Playverse needs accounts, cross-device sync, shared 
 
 Implemented: two playable mini-games, deterministic daily estimation challenges, local history and replay, a progress dashboard, unit tests, browser end-to-end tests, and dependency auditing in CI.
 
-Not implemented: user accounts, cloud sync, database persistence, public leaderboards, server-validated scores or production deployment configuration. Those remain separate release decisions rather than implied capabilities.
+Not implemented: user accounts, cloud sync, database persistence, public leaderboards or server-validated scores. GitHub Pages deployment configuration is committed, but live publication remains unverified until Pages is enabled and the deployment workflow succeeds.
