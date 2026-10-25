@@ -6,7 +6,7 @@ Playverse is a growing collection of interactive mini-games, daily puzzles and f
 
 ## Project status
 
-Phase 1 foundation is in progress. The repository contains the initial React + TypeScript + Vite app shell and responsive homepage concept. The first playable game, archive and persistence are planned next.
+The repository now includes a playable five-round Size It Up game, a date-based daily challenge, and a searchable local archive for completed games. Results are stored in browser local storage and do not sync across devices. Online accounts, leaderboards, server-validated scores and additional games remain planned.
 
 ## Tech stack
 
