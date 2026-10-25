@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Ruler, Trophy } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { dailyChallengeId, localDateKey, saveGameResult, type SavedGame } from "../lib/gameHistory";
 
 type Puzzle = { id: number; object: string; clue: string; actual: number; unit: string; reference: string; referenceSize: number; shape: "bottle" | "book" | "ball" | "mug" | "plant" };
 type Result = { puzzle: Puzzle; guess: number; score: number; errorPercent: number };
@@ -18,19 +19,19 @@ function scoreGuess(guess: number, actual: number) {
   return { score: Math.max(0, Math.round(100 - errorPercent * 1.5)), errorPercent: Math.round(errorPercent) };
 }
 
-export default function SizeItUp() {
+export default function SizeItUp() {\n  const [searchParams] = useSearchParams();\n  const dailyMode = searchParams.get("mode") === "daily";\n  const today = localDateKey();\n  const challengeId = dailyChallengeId();\n  const [saveNotice, setSaveNotice] = useState("");
   const [started, setStarted] = useState(false);
   const [roundIndex, setRoundIndex] = useState(0);
   const [guess, setGuess] = useState(20);
   const [results, setResults] = useState<Result[]>([]);
   const [revealed, setRevealed] = useState(false);
   const [finished, setFinished] = useState(false);
-  const puzzle = puzzles[roundIndex];
+  const dailyOffset = today.split("-").reduce((sum, part) => sum + Number(part), 0) % puzzles.length;\n  const roundPuzzles = dailyMode ? [...puzzles.slice(dailyOffset), ...puzzles.slice(0, dailyOffset)] : puzzles;\n  const puzzle = roundPuzzles[roundIndex];
   const total = useMemo(() => results.reduce((sum, result) => sum + result.score, 0), [results]);
   const currentResult = results[roundIndex];
 
   function startGame() {
-    setStarted(true); setRoundIndex(0); setGuess(20); setResults([]); setRevealed(false); setFinished(false);
+    setStarted(true); setRoundIndex(0); setGuess(20); setResults([]); setRevealed(false); setFinished(false); setSaveNotice("");
   }
   function lockGuess() {
     if (revealed) return;
@@ -49,12 +50,12 @@ export default function SizeItUp() {
     <Link className="back-link" to="/games"><ArrowLeft size={15}/> All games</Link>
     {!started ? <section className="game-intro-panel">
       <div className="game-intro-art"><div className="intro-orbit"/><div className="intro-shape shape-tall"/><div className="intro-shape shape-small"/><div className="intro-shape shape-wide"/></div>
-      <div className="game-intro-copy"><div className="eyebrow"><span className="pulse-dot"/> ESTIMATION · 5 ROUNDS</div><h1>Size It Up<span className="lime-text">.</span></h1><p>How good is your eye? Resize the mystery object to match your best estimate. Then reveal the real measurement and see how close you got.</p>
+      <div className="game-intro-copy"><div className="eyebrow"><span className="pulse-dot"/> {dailyMode ? "DAILY CHALLENGE · 5 ROUNDS" : "ESTIMATION · 5 ROUNDS"}</div><h1>Size It Up<span className="lime-text">.</span></h1><p>How good is your eye? Resize the mystery object to match your best estimate. Then reveal the real measurement and see how close you got.</p>
         <ul><li><Check size={15}/> Five objects per game</li><li><Check size={15}/> Up to 100 points per round</li><li><Check size={15}/> No timer — trust your instincts</li></ul>
         <button className="primary-button game-start-button" onClick={startGame}>Start playing <ArrowRight size={16}/></button>
       </div>
     </section> : finished ? <section className="results-panel">
-      <div className="results-trophy"><Trophy size={31}/></div><div className="eyebrow">GAME COMPLETE</div><h1>You sized it up.</h1><div className="final-score">{total}<span> / 500</span></div><p className="results-caption">{total >= 440 ? "Incredible eye. You have a real feel for scale." : total >= 340 ? "Great estimating. Your instincts are getting sharp." : total >= 220 ? "Not bad! A little practice makes a big difference." : "Every guess trains your eye. Ready for another go?"}</p>
+      <div className="results-trophy"><Trophy size={31}/></div><div className="eyebrow">{dailyMode ? "DAILY CHALLENGE COMPLETE" : "GAME COMPLETE"}</div><h1>You sized it up.</h1><div className="final-score">{total}<span> / 500</span></div><p className="results-caption">{total >= 440 ? "Incredible eye. You have a real feel for scale." : total >= 340 ? "Great estimating. Your instincts are getting sharp." : total >= 220 ? "Not bad! A little practice makes a big difference." : "Every guess trains your eye. Ready for another go?"}</p>
       <div className="result-list">{results.map((result,index)=><div className="result-row" key={result.puzzle.id}><span className="result-round">0{index+1}</span><span className="result-name">{result.puzzle.object}<small>Your guess: {result.guess} {result.puzzle.unit} · Actual: {result.puzzle.actual} {result.puzzle.unit}</small></span><strong>{result.score}<small>pts</small></strong></div>)}</div>
       <button className="primary-button game-start-button" onClick={startGame}><RotateCcw size={16}/> Play again</button>
     </section> : <section className="play-panel">
