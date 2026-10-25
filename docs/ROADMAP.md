@@ -6,8 +6,8 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Create React + TypeScript + Vite application scaffold.
 - [x] Establish shared responsive visual foundations and initial homepage shell.
 - [x] Document architecture and roadmap.
-- [ ] Install dependencies and run a production build in a local or CI environment.
-- [ ] Add automated test tooling and baseline checks.
+- [x] Install dependencies and run a production build in CI.
+- [x] Add automated test tooling and baseline checks.
 
 ## Phase 2 — Brand and interface
 - [x] Refine design tokens and component conventions.
@@ -17,8 +17,9 @@ This roadmap is the project status source of truth. Mark a feature complete only
 
 ## Phase 3 — First playable game
 - [x] Implement original size-estimation gameplay and puzzle data.
-- [ ] Add pointer/touch controls, keyboard support, answer reveal and scoring.
-- [x] Add deterministic five-round data and scoring logic.\n- [ ] Add automated unit tests and verify the production build in CI.
+- [x] Add pointer/touch controls, keyboard support, answer reveal and scoring; verify scoring logic with unit tests.
+- [x] Add deterministic five-round data and scoring logic.
+- [x] Add automated unit tests and verify the production build in CI.
 
 ## Phase 4 — Daily challenges and archive
 - [x] Define stable date-based challenge IDs and local-calendar date rules.
@@ -30,7 +31,7 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Add Higher or Lower as a second fully playable mini-game.
 - [x] Extract Higher or Lower direction and scoring rules into pure functions.
 - [x] Add Vitest coverage for number direction, scoring, sequence generation and daily date IDs.
-- [ ] Verify production build and automated tests in GitHub Actions.
+- [x] Verify production build and automated tests in GitHub Actions.
 
 ## Phase 6 — Personal progress
 - [ ] Save local history, best scores, accuracy and streaks.
