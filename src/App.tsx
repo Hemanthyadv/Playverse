@@ -2,6 +2,8 @@ import { useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Archive, CalendarDays, Check, Gamepad2, Home, Info, Menu, Search, Sparkles, Trophy, X } from "lucide-react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import SizeItUp from "./games/SizeItUp";
+import DailyChallengePage from "./pages/DailyChallengePage";
+import ArchivePage from "./pages/ArchivePage";
 
 type Game = { id: string; title: string; type: string; description: string; tone: string; mark: string; status: string; };
 const games: Game[] = [
@@ -79,16 +81,7 @@ function GamesPage() {
     <p className="page-footnote">Game cards marked planned or in development are previews and cannot be played yet.</p>
   </main>;
 }
-function DailyPage() {
-  return <main className="inner-page"><PageIntro eyebrow="A FRESH CHALLENGE, EVERY DAY" title="Your daily moment of play." description="Daily challenges are coming soon. We're building a fair, repeatable puzzle experience with a clear score and a satisfying reveal."/>
-    <section className="feature-panel"><div className="feature-symbol"><CalendarDays size={30}/></div><div className="feature-copy"><span className="status-label"><span/> IN DEVELOPMENT</span><h2>A new challenge is on its way.</h2><p>The first daily challenge will arrive with our Size It Up game. Each puzzle will have a stable answer, so everyone gets a fair shot.</p><Link className="primary-button" to="/games">See the game roadmap <ArrowRight size={16}/></Link></div></section>
-  </main>;
-}
-function ArchivePage() {
-  return <main className="inner-page"><PageIntro eyebrow="THE REPLAY SHELF" title="Good games are worth another go." description="Once daily puzzles launch, the archive will make previous challenges easy to find and replay."/>
-    <div className="empty-state archive-empty"><div className="archive-icon"><Archive size={27}/></div><h2>Your archive is getting ready.</h2><p>No past challenges are available yet. We’ll list them here when daily games launch.</p><Link className="secondary-link" to="/games">Explore planned games <ArrowRight size={15}/></Link></div>
-  </main>;
-}
+function DailyPage() { return <DailyChallengePage/>; }
 function AboutPage() {
   return <main className="inner-page"><PageIntro eyebrow="WHY PLAYVERSE?" title="A little play goes a long way." description="Playverse is an independent mini-game platform built around quick challenges, thoughtful design and the fun of learning something new."/>
     <div className="about-grid"><article><span className="about-number">01</span><h2>Easy to jump into</h2><p>Clear rules and short rounds, so you can play during a quick break.</p></article><article><span className="about-number">02</span><h2>Made for curiosity</h2><p>Estimation, trivia and clever puzzles reward observation as much as knowledge.</p></article><article><span className="about-number">03</span><h2>Built in the open</h2><p>Playverse is being developed iteratively, with a public roadmap and a focus on quality.</p></article></div>
