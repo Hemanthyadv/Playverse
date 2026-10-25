@@ -19,14 +19,14 @@ function scoreGuess(guess: number, actual: number) {
   return { score: Math.max(0, Math.round(100 - errorPercent * 1.5)), errorPercent: Math.round(errorPercent) };
 }
 
-export default function SizeItUp() {\n  const [searchParams] = useSearchParams();\n  const dailyMode = searchParams.get("mode") === "daily";\n  const today = localDateKey();\n  const challengeId = dailyChallengeId();\n  const [saveNotice, setSaveNotice] = useState("");
+export default function SizeItUp() {\n  const [searchParams] = useSearchParams();\n  const dailyMode = searchParams.get("mode") === "daily";\n  const today = localDateKey();\n  const requestedDate = searchParams.get("date") ?? "";\n  const challengeDate = dailyMode && /^\\d{4}-\\d{2}-\\d{2}$/.test(requestedDate) ? requestedDate : today;\n  const challengeId = dailyChallengeId(new Date(challengeDate + "T12:00:00"));\n  const [saveNotice, setSaveNotice] = useState("");
   const [started, setStarted] = useState(false);
   const [roundIndex, setRoundIndex] = useState(0);
   const [guess, setGuess] = useState(20);
   const [results, setResults] = useState<Result[]>([]);
   const [revealed, setRevealed] = useState(false);
   const [finished, setFinished] = useState(false);
-  const dailyOffset = today.split("-").reduce((sum, part) => sum + Number(part), 0) % puzzles.length;\n  const roundPuzzles = dailyMode ? [...puzzles.slice(dailyOffset), ...puzzles.slice(0, dailyOffset)] : puzzles;\n  const puzzle = roundPuzzles[roundIndex];
+  const dailyOffset = challengeDate.split("-").reduce((sum, part) => sum + Number(part), 0) % puzzles.length;\n  const roundPuzzles = dailyMode ? [...puzzles.slice(dailyOffset), ...puzzles.slice(0, dailyOffset)] : puzzles;\n  const puzzle = roundPuzzles[roundIndex];
   const total = useMemo(() => results.reduce((sum, result) => sum + result.score, 0), [results]);
   const currentResult = results[roundIndex];
 
