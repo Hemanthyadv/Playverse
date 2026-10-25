@@ -5,6 +5,7 @@ import SizeItUp from "./games/SizeItUp";
 import HigherOrLower from "./games/HigherOrLower";
 import DailyChallengePage from "./pages/DailyChallengePage";
 import ArchivePage from "./pages/ArchivePage";
+import ProgressPage from "./pages/ProgressPage";
 
 type Game = { id: string; title: string; type: string; description: string; tone: string; mark: string; status: string; };
 const games: Game[] = [
@@ -17,6 +18,7 @@ const navItems = [
   { to: "/games", label: "Games", icon: Gamepad2 },
   { to: "/daily", label: "Daily challenge", icon: CalendarDays },
   { to: "/archive", label: "Archive", icon: Archive },
+  { to: "/progress", label: "Progress", icon: Trophy },
   { to: "/about", label: "About", icon: Info },
 ];
 
@@ -94,6 +96,6 @@ function NotFoundPage() {
 }
 export default function App() {
   return <div className="app-shell"><Header/><Routes>
-    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/games/size-it-up" element={<SizeItUp/>}/><Route path="/games/higher-or-lower" element={<HigherOrLower/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
+    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/games/size-it-up" element={<SizeItUp/>}/><Route path="/games/higher-or-lower" element={<HigherOrLower/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/progress" element={<ProgressPage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
   </Routes><Footer/></div>;
 }
