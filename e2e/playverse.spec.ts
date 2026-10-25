@@ -58,3 +58,24 @@ test("Higher or Lower completes a game and saves it to the archive", async ({ pa
   await page.getByRole("link", { name: "Archive" }).click();
   await expect(page.getByRole("heading", { name: "Higher or Lower" })).toBeVisible();
 });
+
+
+test("Daily Quiz is playable, saves its score, and can be replayed from the archive", async ({ page }) => {
+  await page.goto("/games/daily-quiz", { waitUntil: "domcontentloaded" });
+  await page.getByRole("button", { name: /Start the quiz/ }).click();
+
+  const answers = ["Mars", "Six", "Pacific", "Nectar", "Thermometer"];
+  for (let index = 0; index < answers.length; index += 1) {
+    await page.getByRole("button", { name: new RegExp(answers[index]) }).click();
+    await page.getByRole("button", { name: index === answers.length - 1 ? /Finish quiz/ : /Lock answer/ }).click();
+  }
+
+  await expect(page.getByRole("heading", { name: "Brilliant brain." })).toBeVisible();
+  await expect(page.getByText("Your quiz score was saved to your local archive.")).toBeVisible();
+  await page.getByRole("link", { name: "All games" }).click();
+  await openMobileNavigationIfNeeded(page);
+  await page.getByRole("link", { name: "Archive" }).click();
+  await expect(page.getByRole("heading", { name: "Daily Quiz" })).toBeVisible();
+  await page.getByRole("link", { name: /Replay practice Daily Quiz/ }).click();
+  await expect(page.getByRole("button", { name: /Start the quiz/ })).toBeVisible();
+});
