@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Archive, CalendarDays, Check, Gamepad2, Home, Info, Menu, Search, Sparkles, Trophy, X } from "lucide-react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 
@@ -34,7 +34,7 @@ function Header() {
 function Footer() {
   return <footer className="site-footer"><Link className="brand" to="/"><span className="brand-icon"><Gamepad2 size={17}/></span><span>playverse<span className="lime-text">.</span></span></Link><span>Made for the curious. © {new Date().getFullYear()} Playverse</span><Link to="/about">Built for curious minds</Link></footer>;
 }
-function Eyebrow({children}:{children:React.ReactNode}) { return <div className="eyebrow"><span className="pulse-dot"/>{children}</div>; }
+function Eyebrow({children}:{children:ReactNode}) { return <div className="eyebrow"><span className="pulse-dot"/>{children}</div>; }
 function GameCard({game}:{game:Game}) {
   return <article className="game-card">
     <div className="card-top"><span>{game.id} / GAME</span><span className="card-arrow"><ArrowUpRight size={17}/></span></div>
