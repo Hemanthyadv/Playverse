@@ -6,7 +6,7 @@ Playverse is a growing collection of interactive mini-games, daily puzzles and f
 
 ## Project status
 
-Phase 1 foundation is in progress. The repository contains the initial React + TypeScript + Vite app shell and responsive homepage concept. The first playable game, archive and persistence are planned next.
+The repository includes two playable mini-games (Size It Up and Higher or Lower), a date-based daily challenge, and a searchable local archive for both games, and a personal progress dashboard with best scores, estimation accuracy, daily streaks and rule-based achievements. Results stay in browser local storage and do not sync across devices. Online accounts, leaderboards and server-validated scores remain planned. Vitest covers core logic; Playwright covers desktop/mobile navigation and end-to-end game flows.
 
 ## Tech stack
 
@@ -32,7 +32,7 @@ npm run build
 npm run typecheck
 ```
 
-## Project documentation
+## Deployment\n\nA GitHub Pages deployment workflow is included in `.github/workflows/deploy-pages.yml`. To publish, merge the phase PRs in order, then set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. A push to `main` (or manual workflow dispatch) builds the app with the `/Playverse/` asset path and deploys it. Live publication is not complete until Pages is enabled and the deployment workflow succeeds.\n\n## Project documentation
 
 - [Roadmap](docs/ROADMAP.md)
 - [Architecture](docs/ARCHITECTURE.md)

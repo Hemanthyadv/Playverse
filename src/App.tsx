@@ -1,11 +1,16 @@
 import { useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Archive, CalendarDays, Check, Gamepad2, Home, Info, Menu, Search, Sparkles, Trophy, X } from "lucide-react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import SizeItUp from "./games/SizeItUp";
+import HigherOrLower from "./games/HigherOrLower";
+import DailyChallengePage from "./pages/DailyChallengePage";
+import ArchivePage from "./pages/ArchivePage";
+import ProgressPage from "./pages/ProgressPage";
 
 type Game = { id: string; title: string; type: string; description: string; tone: string; mark: string; status: string; };
 const games: Game[] = [
-  { id: "01", title: "Size It Up", type: "ESTIMATION", description: "Trust your eye. Estimate the size of everyday things.", tone: "lilac", mark: "◒", status: "FIRST GAME IN DEVELOPMENT" },
-  { id: "02", title: "Higher or Lower", type: "NUMBER SENSE", description: "Make the right call before the next number appears.", tone: "peach", mark: "↗", status: "PLANNED" },
+  { id: "01", title: "Size It Up", type: "ESTIMATION", description: "Trust your eye. Estimate the size of everyday things.", tone: "lilac", mark: "◒", status: "PLAY NOW" },
+  { id: "02", title: "Higher or Lower", type: "NUMBER SENSE", description: "Make the right call before the next number appears.", tone: "peach", mark: "↗", status: "PLAY NOW" },
   { id: "03", title: "Daily Quiz", type: "TRIVIA", description: "A few curious questions to give your brain a workout.", tone: "lime", mark: "✳", status: "PLANNED" },
 ];
 const navItems = [
@@ -13,6 +18,7 @@ const navItems = [
   { to: "/games", label: "Games", icon: Gamepad2 },
   { to: "/daily", label: "Daily challenge", icon: CalendarDays },
   { to: "/archive", label: "Archive", icon: Archive },
+  { to: "/progress", label: "Progress", icon: Trophy },
   { to: "/about", label: "About", icon: Info },
 ];
 
@@ -40,7 +46,7 @@ function GameCard({game}:{game:Game}) {
     <div className="card-top"><span>{game.id} / GAME</span><span className="card-arrow"><ArrowUpRight size={17}/></span></div>
     <div className={`game-art ${game.tone}`} aria-hidden="true"><span>{game.mark}</span><i/><i/><i/></div>
     <div className="game-type">{game.type}</div><h3>{game.title}</h3><p>{game.description}</p>
-    <div className="card-status"><span/> {game.status}</div>
+    <div className="card-status"><span/> {game.status}</div>{game.id === "01" && <Link className="card-play-link" to="/games/size-it-up">Play now <ArrowRight size={14}/></Link>}{game.id === "02" && <Link className="card-play-link" to="/games/higher-or-lower">Play now <ArrowRight size={14}/></Link>}
   </article>;
 }
 function HomePage() {
@@ -72,22 +78,13 @@ function PageIntro({eyebrow,title,description}:{eyebrow:string;title:string;desc
 function GamesPage() {
   const [query,setQuery] = useState("");
   const filtered = games.filter(game => `${game.title} ${game.type} ${game.description}`.toLowerCase().includes(query.toLowerCase()));
-  return <main className="inner-page"><PageIntro eyebrow="THE PLAYGROUND" title="Find your next favourite." description="A growing collection of small games for curious minds. We're building the first playable experience now."/>
+  return <main className="inner-page"><PageIntro eyebrow="THE PLAYGROUND" title="Find your next favourite." description="A growing collection of small games for curious minds. Try Size It Up, our first playable estimation game."/>
     <label className="search-box"><Search size={17}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search games..." aria-label="Search games"/></label>
     {filtered.length ? <div className="games-grid">{filtered.map(game=><GameCard key={game.id} game={game}/>)}</div> : <div className="empty-state"><Search size={25}/><h2>No games found</h2><p>Try another title or search term.</p><button className="secondary-button" onClick={()=>setQuery("")}>Clear search</button></div>}
     <p className="page-footnote">Game cards marked planned or in development are previews and cannot be played yet.</p>
   </main>;
 }
-function DailyPage() {
-  return <main className="inner-page"><PageIntro eyebrow="A FRESH CHALLENGE, EVERY DAY" title="Your daily moment of play." description="Daily challenges are coming soon. We're building a fair, repeatable puzzle experience with a clear score and a satisfying reveal."/>
-    <section className="feature-panel"><div className="feature-symbol"><CalendarDays size={30}/></div><div className="feature-copy"><span className="status-label"><span/> IN DEVELOPMENT</span><h2>A new challenge is on its way.</h2><p>The first daily challenge will arrive with our Size It Up game. Each puzzle will have a stable answer, so everyone gets a fair shot.</p><Link className="primary-button" to="/games">See the game roadmap <ArrowRight size={16}/></Link></div></section>
-  </main>;
-}
-function ArchivePage() {
-  return <main className="inner-page"><PageIntro eyebrow="THE REPLAY SHELF" title="Good games are worth another go." description="Once daily puzzles launch, the archive will make previous challenges easy to find and replay."/>
-    <div className="empty-state archive-empty"><div className="archive-icon"><Archive size={27}/></div><h2>Your archive is getting ready.</h2><p>No past challenges are available yet. We’ll list them here when daily games launch.</p><Link className="secondary-link" to="/games">Explore planned games <ArrowRight size={15}/></Link></div>
-  </main>;
-}
+function DailyPage() { return <DailyChallengePage/>; }
 function AboutPage() {
   return <main className="inner-page"><PageIntro eyebrow="WHY PLAYVERSE?" title="A little play goes a long way." description="Playverse is an independent mini-game platform built around quick challenges, thoughtful design and the fun of learning something new."/>
     <div className="about-grid"><article><span className="about-number">01</span><h2>Easy to jump into</h2><p>Clear rules and short rounds, so you can play during a quick break.</p></article><article><span className="about-number">02</span><h2>Made for curiosity</h2><p>Estimation, trivia and clever puzzles reward observation as much as knowledge.</p></article><article><span className="about-number">03</span><h2>Built in the open</h2><p>Playverse is being developed iteratively, with a public roadmap and a focus on quality.</p></article></div>
@@ -99,6 +96,6 @@ function NotFoundPage() {
 }
 export default function App() {
   return <div className="app-shell"><Header/><Routes>
-    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
+    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/games/size-it-up" element={<SizeItUp/>}/><Route path="/games/higher-or-lower" element={<HigherOrLower/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/progress" element={<ProgressPage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
   </Routes><Footer/></div>;
 }

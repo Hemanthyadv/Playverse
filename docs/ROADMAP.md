@@ -6,44 +6,47 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Create React + TypeScript + Vite application scaffold.
 - [x] Establish shared responsive visual foundations and initial homepage shell.
 - [x] Document architecture and roadmap.
-- [ ] Install dependencies and run a production build in a local or CI environment.
-- [ ] Add automated test tooling and baseline checks.
+- [x] Install dependencies and run a production build in CI.
+- [x] Add automated test tooling and baseline checks.
 
 ## Phase 2 — Brand and interface
 - [x] Refine design tokens and component conventions.
 - [x] Add functional responsive navigation and real routes.
 - [x] Add empty and not-found states; loading/error states will be added where data services require them.
-- [ ] Verify keyboard navigation and small-screen layouts in a browser.
+- [x] Verify keyboard navigation and small-screen layouts in a browser with Playwright.
 
 ## Phase 3 — First playable game
-- [ ] Implement original size-estimation gameplay and data.
-- [ ] Add pointer/touch controls, keyboard support, answer reveal and scoring.
-- [ ] Add deterministic round data and scoring tests.
+- [x] Implement original size-estimation gameplay and puzzle data.
+- [x] Add pointer/touch controls, keyboard support, answer reveal and scoring; verify scoring logic with unit tests.
+- [x] Add deterministic five-round data and scoring logic.
+- [x] Add automated unit tests and verify the production build in CI.
 
 ## Phase 4 — Daily challenges and archive
-- [ ] Define stable challenge IDs and timezone/date rules.
-- [ ] Build archive filters and replay behavior.
-- [ ] Persist results and prevent accidental duplicate submissions.
+- [x] Define stable date-based challenge IDs and local-calendar date rules.
+- [x] Build archive filters and date-preserving replay behavior.
+- [x] Persist results locally and prevent duplicate daily challenge saves on the same browser.
 
 ## Phase 5 — More games
-- [ ] Define a shared game module contract.
-- [ ] Add additional mini-games incrementally.
-- [ ] Keep game rules, data and scoring independently testable.
+- [x] Define a shared game catalog contract for IDs, titles, routes, categories and score caps.
+- [x] Add Higher or Lower as a second fully playable mini-game.
+- [x] Extract Higher or Lower direction and scoring rules into pure functions.
+- [x] Add Vitest coverage for number direction, scoring, sequence generation and daily date IDs.
+- [x] Verify production build and automated tests in GitHub Actions.
 
 ## Phase 6 — Personal progress
-- [ ] Save local history, best scores, accuracy and streaks.
-- [ ] Add statistics and achievements with transparent rules.
+- [x] Save local history, best scores, estimation accuracy and daily streaks for both playable games.
+- [x] Add a local progress dashboard, statistics and achievements with transparent rules.
 
 ## Phase 7 — Online services
-- [ ] Evaluate backend and hosting trade-offs.
+- [x] Evaluate backend and hosting trade-offs in the architecture document.
 - [ ] Add authentication only when needed.
 - [ ] Add database persistence, server-validated scores and leaderboards.
 - [ ] Add access controls, rate limits and abuse prevention.
 
 ## Phase 8 — Quality and launch
-- [ ] Add automated unit and end-to-end checks.
+- [x] Add automated unit and end-to-end checks in CI.
 - [ ] Verify accessibility, responsive behavior and performance.
-- [ ] Configure production deployment and release documentation.
+- [x] Configure the GitHub Pages deployment workflow and document setup; live publication still requires Pages enablement and a successful deployment.
 
 ## Status convention
 - [ ] Not done.
