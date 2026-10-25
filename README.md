@@ -32,7 +32,7 @@ npm run build
 npm run typecheck
 ```
 
-## Project documentation
+## Deployment\n\nA GitHub Pages deployment workflow is included in `.github/workflows/deploy-pages.yml`. To publish, merge the phase PRs in order, then set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. A push to `main` (or manual workflow dispatch) builds the app with the `/Playverse/` asset path and deploys it. Live publication is not complete until Pages is enabled and the deployment workflow succeeds.\n\n## Project documentation
 
 - [Roadmap](docs/ROADMAP.md)
 - [Architecture](docs/ARCHITECTURE.md)
