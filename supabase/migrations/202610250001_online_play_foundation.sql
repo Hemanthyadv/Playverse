@@ -34,6 +34,8 @@ create unique index if not exists game_scores_one_daily_entry
 
 alter table public.player_profiles enable row level security;
 alter table public.game_scores enable row level security;
+grant select on public.player_profiles, public.game_scores to anon, authenticated;
+revoke insert, update, delete on public.game_scores from anon, authenticated;
 
 drop policy if exists "Public can read player display names" on public.player_profiles;
 create policy "Public can read player display names" on public.player_profiles for select to anon, authenticated using (true);
@@ -65,11 +67,11 @@ declare current_player uuid; inserted_score public.game_scores;
 begin
   current_player := auth.uid();
   if current_player is null then raise exception 'Guest session required before submitting a score' using errcode = '28000'; end if;
-  if p_game_id not in ('size-it-up', 'higher-or-lower', 'daily-quiz') then raise exception 'Unsupported game ID' using errcode = '22023'; end if;
+  if p_game_id is null or p_game_id not in ('size-it-up', 'higher-or-lower', 'daily-quiz') then raise exception 'Unsupported game ID' using errcode = '22023'; end if;
   if p_score is null or p_score < 0 or (p_game_id = 'size-it-up' and p_score > 500) or (p_game_id in ('higher-or-lower', 'daily-quiz') and p_score > 100) then
     raise exception 'Score is outside the allowed range for this game' using errcode = '22023';
   end if;
-  if p_mode not in ('daily', 'practice') then raise exception 'Unsupported game mode' using errcode = '22023'; end if;
+  if p_mode is null or p_mode not in ('daily', 'practice') then raise exception 'Unsupported game mode' using errcode = '22023'; end if;
   if (p_mode = 'daily' and p_challenge_date is null) or (p_mode = 'practice' and p_challenge_date is not null) then
     raise exception 'Daily scores require a challenge date; practice scores must not have one' using errcode = '22023';
   end if;
