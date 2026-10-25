@@ -5,7 +5,7 @@ import SizeItUp from "./games/SizeItUp";
 
 type Game = { id: string; title: string; type: string; description: string; tone: string; mark: string; status: string; };
 const games: Game[] = [
-  { id: "01", title: "Size It Up", type: "ESTIMATION", description: "Trust your eye. Estimate the size of everyday things.", tone: "lilac", mark: "◒", status: "FIRST GAME IN DEVELOPMENT" },
+  { id: "01", title: "Size It Up", type: "ESTIMATION", description: "Trust your eye. Estimate the size of everyday things.", tone: "lilac", mark: "◒", status: "PLAY NOW" },
   { id: "02", title: "Higher or Lower", type: "NUMBER SENSE", description: "Make the right call before the next number appears.", tone: "peach", mark: "↗", status: "PLANNED" },
   { id: "03", title: "Daily Quiz", type: "TRIVIA", description: "A few curious questions to give your brain a workout.", tone: "lime", mark: "✳", status: "PLANNED" },
 ];
@@ -73,7 +73,7 @@ function PageIntro({eyebrow,title,description}:{eyebrow:string;title:string;desc
 function GamesPage() {
   const [query,setQuery] = useState("");
   const filtered = games.filter(game => `${game.title} ${game.type} ${game.description}`.toLowerCase().includes(query.toLowerCase()));
-  return <main className="inner-page"><PageIntro eyebrow="THE PLAYGROUND" title="Find your next favourite." description="A growing collection of small games for curious minds. We're building the first playable experience now."/>
+  return <main className="inner-page"><PageIntro eyebrow="THE PLAYGROUND" title="Find your next favourite." description="A growing collection of small games for curious minds. Try Size It Up, our first playable estimation game."/>
     <label className="search-box"><Search size={17}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search games..." aria-label="Search games"/></label>
     {filtered.length ? <div className="games-grid">{filtered.map(game=><GameCard key={game.id} game={game}/>)}</div> : <div className="empty-state"><Search size={25}/><h2>No games found</h2><p>Try another title or search term.</p><button className="secondary-button" onClick={()=>setQuery("")}>Clear search</button></div>}
     <p className="page-footnote">Game cards marked planned or in development are previews and cannot be played yet.</p>
