@@ -1,4 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+async function openMobileNavigationIfNeeded(page: Page) {
+  const openButton = page.getByRole("button", { name: "Open navigation" });
+  if (await openButton.isVisible()) await openButton.click();
+}
 
 test("navigation works on desktop and mobile", async ({ page }, testInfo) => {
   if (testInfo.project.name === "mobile-chromium") {
@@ -35,6 +40,7 @@ test("Size It Up supports keyboard input, answer reveal, scoring and archive sav
 
   await expect(page.getByRole("heading", { name: "You sized it up." })).toBeVisible();
   await expect(page.getByText("Score saved to your local archive.")).toBeVisible();
+  await openMobileNavigationIfNeeded(page);
   await page.getByRole("link", { name: "Archive" }).click();
   await expect(page.getByRole("heading", { name: "Size It Up" })).toBeVisible();
 });
@@ -49,6 +55,7 @@ test("Higher or Lower completes a game and saves it to the archive", async ({ pa
   await expect(page.getByRole("heading", { name: /Sharp instincts|Nice run|Keep practicing/ })).toBeVisible();
   await expect(page.getByText("Score saved to your local archive.")).toBeVisible();
   await page.getByRole("link", { name: "All games" }).click();
+  await openMobileNavigationIfNeeded(page);
   await page.getByRole("link", { name: "Archive" }).click();
   await expect(page.getByRole("heading", { name: "Higher or Lower" })).toBeVisible();
 });
