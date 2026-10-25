@@ -26,9 +26,11 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Persist results locally and prevent duplicate daily challenge saves on the same browser.
 
 ## Phase 5 — More games
-- [ ] Define a shared game module contract.
-- [ ] Add additional mini-games incrementally.
-- [ ] Keep game rules, data and scoring independently testable.
+- [x] Define a shared game catalog contract for IDs, titles, routes, categories and score caps.
+- [x] Add Higher or Lower as a second fully playable mini-game.
+- [x] Extract Higher or Lower direction and scoring rules into pure functions.
+- [x] Add Vitest coverage for number direction, scoring, sequence generation and daily date IDs.
+- [ ] Verify production build and automated tests in GitHub Actions.
 
 ## Phase 6 — Personal progress
 - [ ] Save local history, best scores, accuracy and streaks.
