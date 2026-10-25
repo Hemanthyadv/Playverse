@@ -22,7 +22,8 @@ export default function ArchivePage() {
       history.filter(
         (item) =>
           (filter === "all" || item.mode === filter) &&
-          (item.date.includes(normalizedQuery) ||
+          ((item.gameTitle ?? "Size It Up").toLowerCase().includes(normalizedQuery) ||
+            item.date.includes(normalizedQuery) ||
             item.rounds.some((round) => round.object.toLowerCase().includes(normalizedQuery))),
       ),
     [history, filter, normalizedQuery],
