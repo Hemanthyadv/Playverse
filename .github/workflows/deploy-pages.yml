@@ -30,6 +30,8 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: "true"
+      - name: Preserve client-side routes on GitHub Pages
+        run: cp dist/index.html dist/404.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

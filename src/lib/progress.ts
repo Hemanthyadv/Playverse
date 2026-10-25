@@ -14,7 +14,11 @@ export type ProgressSummary = {
 export function summarizeProgress(history: SavedGame[]): ProgressSummary {
   const gamesPlayed = history.length;
   const totalPoints = history.reduce((sum, game) => sum + game.totalScore, 0);
-  const estimationGames = history.filter((game) => game.gameId !== "higher-or-lower");
+  // Only Size It Up results (including legacy entries without a gameId) contain
+  // measurement-error data. Trivia answers are not estimates and must not affect accuracy.
+  const estimationGames = history.filter(
+    (game) => game.gameId === undefined || game.gameId === "size-it-up",
+  );
   const totalRounds = estimationGames.reduce((sum, game) => sum + game.rounds.length, 0);
   const totalError = estimationGames.reduce(
     (sum, game) => sum + game.rounds.reduce((roundSum, round) => roundSum + round.errorPercent, 0),

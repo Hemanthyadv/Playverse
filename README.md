@@ -6,7 +6,7 @@ Playverse is a growing collection of interactive mini-games, daily puzzles and f
 
 ## Project status
 
-The repository includes two playable mini-games (Size It Up and Higher or Lower), a date-based daily challenge, and a searchable local archive for both games, and a personal progress dashboard with best scores, estimation accuracy, daily streaks and rule-based achievements. Results stay in browser local storage and do not sync across devices. Online accounts, leaderboards and server-validated scores remain planned. Vitest covers core logic; Playwright covers desktop/mobile navigation and end-to-end game flows.
+The repository includes three playable games (Size It Up, Higher or Lower, and Daily Quiz), a date-based Size It Up challenge, a searchable local archive, and a personal progress dashboard with scores, estimation accuracy, daily streaks and rule-based achievements. Results stay in browser local storage and do not sync across devices. Online accounts, leaderboards and server-validated scores remain planned. Vitest covers core logic; Playwright covers desktop/mobile navigation and end-to-end game flows.
 
 ## Tech stack
 
@@ -32,7 +32,11 @@ npm run build
 npm run typecheck
 ```
 
-## Deployment\n\nA GitHub Pages deployment workflow is included in `.github/workflows/deploy-pages.yml`. To publish, merge the phase PRs in order, then set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. A push to `main` (or manual workflow dispatch) builds the app with the `/Playverse/` asset path and deploys it. Live publication is not complete until Pages is enabled and the deployment workflow succeeds.\n\n## Project documentation
+## Deployment
+
+A GitHub Pages deployment workflow is included in `.github/workflows/deploy-pages.yml`. Set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. A push to `main` (or manual workflow dispatch) builds the app with the `/Playverse/` asset path and deploys it. Live publication is verified when the Pages deployment workflow succeeds.
+
+## Project documentation
 
 - [Roadmap](docs/ROADMAP.md)
 - [Architecture](docs/ARCHITECTURE.md)
