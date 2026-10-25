@@ -1,7 +1,7 @@
 export type SavedRound = { object: string; guess: number; actual: number; score: number; errorPercent: number };
 export type SavedGame = {
   id: string;
-  gameId?: "size-it-up" | "higher-or-lower";
+  gameId?: "size-it-up" | "higher-or-lower" | "daily-quiz";
   gameTitle?: string;
   challengeId: string;
   mode: "daily" | "practice";
