@@ -76,6 +76,6 @@ test("Daily Quiz is playable, saves its score, and can be replayed from the arch
   await openMobileNavigationIfNeeded(page);
   await page.getByRole("link", { name: "Archive" }).click();
   await expect(page.getByRole("heading", { name: "Daily Quiz" })).toBeVisible();
-  await page.getByRole("link", { name: /Replay practice Daily Quiz/ }).click();
+  await page.locator(".archive-replay").click();
   await expect(page.getByRole("button", { name: /Start the quiz/ })).toBeVisible();
 });
