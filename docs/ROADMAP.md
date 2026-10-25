@@ -38,7 +38,7 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Add a local progress dashboard, statistics and achievements with transparent rules.
 
 ## Phase 7 — Online services
-- [ ] Evaluate backend and hosting trade-offs.
+- [x] Evaluate backend and hosting trade-offs in the architecture document.
 - [ ] Add authentication only when needed.
 - [ ] Add database persistence, server-validated scores and leaderboards.
 - [ ] Add access controls, rate limits and abuse prevention.
