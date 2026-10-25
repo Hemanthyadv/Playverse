@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Ruler, Trophy } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-import { dailyChallengeId, localDateKey, saveGameResult } from "../lib/gameHistory";
+import { dailyChallengeId, isValidDateKey, localDateKey, saveGameResult } from "../lib/gameHistory";
 import { scoreGuess } from "./sizeItUpLogic";
 
 type Puzzle = { id: number; object: string; clue: string; actual: number; unit: string; reference: string; referenceSize: number; shape: "bottle" | "book" | "ball" | "mug" | "plant" };
