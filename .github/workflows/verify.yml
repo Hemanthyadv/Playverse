@@ -1,8 +1,12 @@
 name: Verify Playverse
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
-    branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower"]
+    branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower", "fix/phase-audit-build-and-tests", "phase-6/personal-progress"]
   push:
     branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower"]
   workflow_dispatch:
@@ -23,5 +27,9 @@ jobs:
         run: npm run build
       - name: Unit tests
         run: npm test
+      - name: Install Chromium for browser tests
+        run: npx playwright install --with-deps chromium
+      - name: Browser end-to-end tests
+        run: npm run test:e2e
       - name: Dependency security audit
         run: npm audit --json

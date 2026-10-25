@@ -6,7 +6,7 @@ Playverse is a growing collection of interactive mini-games, daily puzzles and f
 
 ## Project status
 
-The repository includes two playable mini-games (Size It Up and Higher or Lower), a date-based daily challenge, and a searchable local archive for completed Size It Up games. Results are stored in browser local storage and do not sync across devices. Higher or Lower currently keeps its score in the active session; online accounts, leaderboards and server-validated scores remain planned. A Vitest test suite covers core game rules and date IDs.
+The repository includes two playable mini-games (Size It Up and Higher or Lower), a date-based daily challenge, and a searchable local archive for both games, and a personal progress dashboard with best scores, estimation accuracy, daily streaks and rule-based achievements. Results stay in browser local storage and do not sync across devices. Online accounts, leaderboards and server-validated scores remain planned. Vitest covers core logic; Playwright covers desktop/mobile navigation and end-to-end game flows.
 
 ## Tech stack
 

@@ -22,7 +22,8 @@ export default function ArchivePage() {
       history.filter(
         (item) =>
           (filter === "all" || item.mode === filter) &&
-          (item.date.includes(normalizedQuery) ||
+          ((item.gameTitle ?? "Size It Up").toLowerCase().includes(normalizedQuery) ||
+            item.date.includes(normalizedQuery) ||
             item.rounds.some((round) => round.object.toLowerCase().includes(normalizedQuery))),
       ),
     [history, filter, normalizedQuery],
@@ -67,7 +68,7 @@ export default function ArchivePage() {
                 <div className="archive-entry-icon">{item.mode === "daily" ? <CalendarDays size={20} /> : <Archive size={20} />}</div>
                 <div className="archive-entry-main">
                   <span className="archive-entry-meta">{item.mode === "daily" ? "DAILY CHALLENGE" : "PRACTICE"} · {formatDate(item.date)}</span>
-                  <h2>Size It Up</h2>
+                  <h2>{item.gameTitle ?? "Size It Up"}</h2>
                   <p>{item.rounds.map((round) => round.object).join(" · ")}</p>
                   <div className="archive-round-scores">
                     {item.rounds.map((round, index) => <span key={index}>R{index + 1}: {round.score}</span>)}
@@ -76,8 +77,8 @@ export default function ArchivePage() {
                 <div className="archive-entry-score"><Trophy size={15} /><strong>{item.totalScore}</strong><span>/ {item.maxScore}</span></div>
                 <Link
                   className="archive-replay"
-                  to={item.mode === "daily" ? `/games/size-it-up?mode=daily&date=${item.date}` : "/games/size-it-up"}
-                  aria-label={`Replay ${item.mode} Size It Up from ${item.date}`}
+                  to={item.gameId === "higher-or-lower" ? "/games/higher-or-lower" : item.mode === "daily" ? `/games/size-it-up?mode=daily&date=${item.date}` : "/games/size-it-up"}
+                  aria-label={`Replay ${item.mode} ${item.gameTitle ?? "Size It Up"} from ${item.date}`}
                 ><RotateCcw size={15} /> Replay</Link>
               </article>
             ))}

@@ -38,6 +38,8 @@ export default function SizeItUp() {
   function persistResult() {
     const saved = saveGameResult({
       id: `size-it-up-${dailyMode ? challengeId : Date.now()}`,
+      gameId: "size-it-up",
+      gameTitle: "Size It Up",
       challengeId: dailyMode ? challengeId : `practice-${Date.now()}`,
       mode: dailyMode ? "daily" : "practice",
       playedAt: new Date().toISOString(),
