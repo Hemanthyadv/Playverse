@@ -77,7 +77,7 @@ export default function ArchivePage() {
                 <div className="archive-entry-score"><Trophy size={15} /><strong>{item.totalScore}</strong><span>/ {item.maxScore}</span></div>
                 <Link
                   className="archive-replay"
-                  to={item.gameId === "higher-or-lower" ? "/games/higher-or-lower" : item.mode === "daily" ? `/games/size-it-up?mode=daily&date=${item.date}` : "/games/size-it-up"}
+                  to={item.gameId === "higher-or-lower" ? "/games/higher-or-lower" : item.gameId === "daily-quiz" ? "/games/daily-quiz" : item.mode === "daily" ? `/games/size-it-up?mode=daily&date=${item.date}` : "/games/size-it-up"}
                   aria-label={`Replay ${item.mode} ${item.gameTitle ?? "Size It Up"} from ${item.date}`}
                 ><RotateCcw size={15} /> Replay</Link>
               </article>
@@ -88,7 +88,7 @@ export default function ArchivePage() {
         <div className="empty-state archive-empty">
           <div className="archive-icon"><Archive size={27} /></div>
           <h2>{history.length ? "No matching games" : "Your archive starts here."}</h2>
-          <p>{history.length ? "Try a different search or filter." : "Play Size It Up to save your first score. Your completed games will appear here."}</p>
+          <p>{history.length ? "Try a different search or filter." : "Play any game to save your first score. Your completed games will appear here."}</p>
           <Link className="primary-button" to="/games/size-it-up">Play Size It Up</Link>
         </div>
       )}
