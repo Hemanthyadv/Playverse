@@ -21,9 +21,9 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Add deterministic five-round data and scoring logic.\n- [ ] Add automated unit tests and verify the production build in CI.
 
 ## Phase 4 — Daily challenges and archive
-- [ ] Define stable challenge IDs and timezone/date rules.
-- [ ] Build archive filters and replay behavior.
-- [ ] Persist results and prevent accidental duplicate submissions.
+- [x] Define stable date-based challenge IDs and local-calendar date rules.
+- [x] Build archive filters and date-preserving replay behavior.
+- [x] Persist results locally and prevent duplicate daily challenge saves on the same browser.
 
 ## Phase 5 — More games
 - [ ] Define a shared game module contract.
