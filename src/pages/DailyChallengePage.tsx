@@ -12,7 +12,7 @@ export default function DailyChallengePage() {
     <section className="daily-challenge-card">
       <div className="daily-calendar-art"><CalendarDays size={42}/><span>DAILY</span></div>
       <div className="daily-challenge-copy"><div className="daily-date-label"><Clock3 size={14}/>{prettyDate}</div><h2>Size It Up: daily edition</h2><p>Five everyday objects. One set of puzzles for today's date. Estimate each size, reveal the answer, and earn up to 500 points.</p>
-      {previous ? <div className="daily-completed"><Check size={17}/><span>Completed today <strong>{previous.totalScore} / {previous.maxScore} points</strong></span></div> : <Link className="primary-button" to="/games/size-it-up?mode=daily">Play today's challenge <Trophy size={16}/></Link>}
+      {previous ? <div className="daily-completed"><Check size={17}/><span>Completed today <strong>{previous.totalScore} / {previous.maxScore} points</strong></span></div> : <Link className="primary-button" to={`/games/size-it-up?mode=daily&date=${date}`}>Play today's challenge <Trophy size={16}/></Link>}
       <small className="daily-footnote">Challenge ID: {challengeId} · Date uses this device's local calendar.</small></div>
     </section>
     <p className="page-footnote">Daily completion is stored locally on this device, not in a shared account. Clearing browser storage or switching devices can remove or reset your history.</p>
