@@ -34,9 +34,24 @@ export function readGameHistory(): SavedGame[] {
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
     return parsed.filter((item): item is SavedGame =>
-      !!item && typeof item.id === "string" && typeof item.challengeId === "string" &&
-      (item.mode === "daily" || item.mode === "practice") && typeof item.playedAt === "string" &&
-      typeof item.date === "string" && typeof item.totalScore === "number" && Array.isArray(item.rounds)
+      !!item &&
+      typeof item.id === "string" &&
+      typeof item.challengeId === "string" &&
+      (item.mode === "daily" || item.mode === "practice") &&
+      typeof item.playedAt === "string" &&
+      typeof item.date === "string" &&
+      Number.isFinite(item.totalScore) &&
+      Number.isFinite(item.maxScore) &&
+      Array.isArray(item.rounds) &&
+      item.rounds.every((round: unknown) => {
+        if (!round || typeof round !== "object") return false;
+        const value = round as Record<string, unknown>;
+        return typeof value.object === "string" &&
+          Number.isFinite(value.guess) &&
+          Number.isFinite(value.actual) &&
+          Number.isFinite(value.score) &&
+          Number.isFinite(value.errorPercent);
+      })
     );
   } catch {
     return [];
