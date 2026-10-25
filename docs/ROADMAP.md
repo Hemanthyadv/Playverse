@@ -34,8 +34,8 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Verify production build and automated tests in GitHub Actions.
 
 ## Phase 6 — Personal progress
-- [ ] Save local history, best scores, accuracy and streaks.
-- [ ] Add statistics and achievements with transparent rules.
+- [x] Save local history, best scores, estimation accuracy and daily streaks for both playable games.
+- [x] Add a local progress dashboard, statistics and achievements with transparent rules.
 
 ## Phase 7 — Online services
 - [ ] Evaluate backend and hosting trade-offs.
