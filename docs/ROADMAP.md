@@ -13,7 +13,7 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [x] Refine design tokens and component conventions.
 - [x] Add functional responsive navigation and real routes.
 - [x] Add empty and not-found states; loading/error states will be added where data services require them.
-- [ ] Verify keyboard navigation and small-screen layouts in a browser.
+- [x] Verify keyboard navigation and small-screen layouts in a browser with Playwright.
 
 ## Phase 3 — First playable game
 - [x] Implement original size-estimation gameplay and puzzle data.
@@ -44,7 +44,7 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [ ] Add access controls, rate limits and abuse prevention.
 
 ## Phase 8 — Quality and launch
-- [ ] Add automated unit and end-to-end checks.
+- [x] Add automated unit and end-to-end checks in CI.
 - [ ] Verify accessibility, responsive behavior and performance.
 - [ ] Configure production deployment and release documentation.
 
