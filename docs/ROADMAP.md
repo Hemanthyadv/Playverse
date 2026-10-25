@@ -29,12 +29,13 @@ This roadmap is the project status source of truth. Mark a feature complete only
 ## Phase 5 — More games
 - [x] Define a shared game catalog contract for IDs, titles, routes, categories and score caps.
 - [x] Add Higher or Lower as a second fully playable mini-game.
+- [x] Add Daily Quiz as a third playable game.
 - [x] Extract Higher or Lower direction and scoring rules into pure functions.
 - [x] Add Vitest coverage for number direction, scoring, sequence generation and daily date IDs.
 - [x] Verify production build and automated tests in GitHub Actions.
 
 ## Phase 6 — Personal progress
-- [x] Save local history, best scores, estimation accuracy and daily streaks for both playable games.
+- [x] Save local history and overall scores for all playable games; calculate estimation accuracy from Size It Up only.
 - [x] Add a local progress dashboard, statistics and achievements with transparent rules.
 
 ## Phase 7 — Online services
@@ -45,8 +46,8 @@ This roadmap is the project status source of truth. Mark a feature complete only
 
 ## Phase 8 — Quality and launch
 - [x] Add automated unit and end-to-end checks in CI.
-- [ ] Verify accessibility, responsive behavior and performance.
-- [x] Configure the GitHub Pages deployment workflow and document setup; live publication still requires Pages enablement and a successful deployment.
+- [ ] Complete a dedicated accessibility, responsive behavior and performance audit.
+- [x] Configure the GitHub Pages deployment workflow, including a fallback for client-side routes.
 
 ## Status convention
 - [ ] Not done.
