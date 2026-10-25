@@ -14,8 +14,9 @@ export type ProgressSummary = {
 export function summarizeProgress(history: SavedGame[]): ProgressSummary {
   const gamesPlayed = history.length;
   const totalPoints = history.reduce((sum, game) => sum + game.totalScore, 0);
-  const totalRounds = history.reduce((sum, game) => sum + game.rounds.length, 0);
-  const totalError = history.reduce(
+  const estimationGames = history.filter((game) => game.gameId !== "higher-or-lower");
+  const totalRounds = estimationGames.reduce((sum, game) => sum + game.rounds.length, 0);
+  const totalError = estimationGames.reduce(
     (sum, game) => sum + game.rounds.reduce((roundSum, round) => roundSum + round.errorPercent, 0),
     0,
   );
