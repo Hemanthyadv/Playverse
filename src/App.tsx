@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Archive, CalendarDays, Check, Gamepad2, Home, Info, Menu, Search, Sparkles, Trophy, X } from "lucide-react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import SizeItUp from "./games/SizeItUp";
 
 type Game = { id: string; title: string; type: string; description: string; tone: string; mark: string; status: string; };
 const games: Game[] = [
@@ -40,7 +41,7 @@ function GameCard({game}:{game:Game}) {
     <div className="card-top"><span>{game.id} / GAME</span><span className="card-arrow"><ArrowUpRight size={17}/></span></div>
     <div className={`game-art ${game.tone}`} aria-hidden="true"><span>{game.mark}</span><i/><i/><i/></div>
     <div className="game-type">{game.type}</div><h3>{game.title}</h3><p>{game.description}</p>
-    <div className="card-status"><span/> {game.status}</div>
+    <div className="card-status"><span/> {game.status}</div>{game.id === "01" && <Link className="card-play-link" to="/games/size-it-up">Play now <ArrowRight size={14}/></Link>}
   </article>;
 }
 function HomePage() {
@@ -99,6 +100,6 @@ function NotFoundPage() {
 }
 export default function App() {
   return <div className="app-shell"><Header/><Routes>
-    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
+    <Route path="/" element={<HomePage/>}/><Route path="/games" element={<GamesPage/>}/><Route path="/games/size-it-up" element={<SizeItUp/>}/><Route path="/daily" element={<DailyPage/>}/><Route path="/archive" element={<ArchivePage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="*" element={<NotFoundPage/>}/>
   </Routes><Footer/></div>;
 }
