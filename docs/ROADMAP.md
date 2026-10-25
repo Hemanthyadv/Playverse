@@ -1,0 +1,50 @@
+# Playverse Roadmap
+
+This roadmap is the project status source of truth. Mark a feature complete only after implementation and appropriate verification.
+
+## Phase 1 — Foundation
+- [x] Create React + TypeScript + Vite application scaffold.
+- [x] Establish shared responsive visual foundations and initial homepage shell.
+- [x] Document architecture and roadmap.
+- [ ] Install dependencies and run a production build in a local or CI environment.
+- [ ] Add automated test tooling and baseline checks.
+
+## Phase 2 — Brand and interface
+- [ ] Refine design tokens and component conventions.
+- [ ] Add functional responsive navigation and real routes.
+- [ ] Add loading, empty, not-found and error states.
+- [ ] Verify keyboard navigation and small-screen layouts.
+
+## Phase 3 — First playable game
+- [ ] Implement original size-estimation gameplay and data.
+- [ ] Add pointer/touch controls, keyboard support, answer reveal and scoring.
+- [ ] Add deterministic round data and scoring tests.
+
+## Phase 4 — Daily challenges and archive
+- [ ] Define stable challenge IDs and timezone/date rules.
+- [ ] Build archive filters and replay behavior.
+- [ ] Persist results and prevent accidental duplicate submissions.
+
+## Phase 5 — More games
+- [ ] Define a shared game module contract.
+- [ ] Add additional mini-games incrementally.
+- [ ] Keep game rules, data and scoring independently testable.
+
+## Phase 6 — Personal progress
+- [ ] Save local history, best scores, accuracy and streaks.
+- [ ] Add statistics and achievements with transparent rules.
+
+## Phase 7 — Online services
+- [ ] Evaluate backend and hosting trade-offs.
+- [ ] Add authentication only when needed.
+- [ ] Add database persistence, server-validated scores and leaderboards.
+- [ ] Add access controls, rate limits and abuse prevention.
+
+## Phase 8 — Quality and launch
+- [ ] Add automated unit and end-to-end checks.
+- [ ] Verify accessibility, responsive behavior and performance.
+- [ ] Configure production deployment and release documentation.
+
+## Status convention
+- [ ] Not done.
+- [x] Implemented in the repository. This does not imply build or runtime verification unless the verification item is separately checked.
