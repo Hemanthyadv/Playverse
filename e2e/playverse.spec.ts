@@ -13,7 +13,7 @@ test("navigation works on desktop and mobile", async ({ page }, testInfo) => {
     await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Progress" }).click();
   } else {
     await page.goto("/");
-    await page.getByRole("link", { name: "Games" }).click();
+    await page.getByRole("link", { name: "Games", exact: true }).click();
   }
 
   await expect(page).toHaveURL(/\/(progress|games)$/);
@@ -32,11 +32,10 @@ test("Size It Up supports keyboard input, answer reveal, scoring and archive sav
   await expect(page.getByText("YOUR ROUND SCORE")).toBeVisible();
 
   for (let round = 0; round < 4; round += 1) {
-    await page.getByRole("button", { name: round === 3 ? /See final results/ : /Next object/ }).click();
-    if (round < 3) {
-      await page.getByRole("button", { name: /Lock in estimate/ }).click();
-    }
+    await page.getByRole("button", { name: /Next object/ }).click();
+    await page.getByRole("button", { name: /Lock in estimate/ }).click();
   }
+  await page.getByRole("button", { name: /See final results/ }).click();
 
   await expect(page.getByRole("heading", { name: "You sized it up." })).toBeVisible();
   await expect(page.getByText("Score saved to your local archive.")).toBeVisible();
