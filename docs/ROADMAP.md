@@ -16,9 +16,9 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [ ] Verify keyboard navigation and small-screen layouts in a browser.
 
 ## Phase 3 — First playable game
-- [ ] Implement original size-estimation gameplay and data.
+- [x] Implement original size-estimation gameplay and puzzle data.
 - [ ] Add pointer/touch controls, keyboard support, answer reveal and scoring.
-- [ ] Add deterministic round data and scoring tests.
+- [x] Add deterministic five-round data and scoring logic.\n- [ ] Add automated unit tests and verify the production build in CI.
 
 ## Phase 4 — Daily challenges and archive
 - [ ] Define stable challenge IDs and timezone/date rules.
