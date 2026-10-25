@@ -46,7 +46,7 @@ This roadmap is the project status source of truth. Mark a feature complete only
 ## Phase 8 — Quality and launch
 - [x] Add automated unit and end-to-end checks in CI.
 - [ ] Verify accessibility, responsive behavior and performance.
-- [ ] Configure production deployment and release documentation.
+- [x] Configure the GitHub Pages deployment workflow and document setup; live publication still requires Pages enablement and a successful deployment.
 
 ## Status convention
 - [ ] Not done.
