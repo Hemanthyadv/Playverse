@@ -2,7 +2,7 @@ name: Verify Playverse
 
 on:
   pull_request:
-    branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive"]
+    branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive", "phase-5/higher-or-lower"]
   push:
     branches: [main, "phase-1/foundation", "phase-2/interface", "phase-3/size-it-up", "phase-4/daily-archive"]
   workflow_dispatch:
@@ -17,8 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - name: Install dependencies
+                - name: Install dependencies
         run: npm install
       - name: Type-check and build
         run: npm run build
