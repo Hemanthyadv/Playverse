@@ -17,7 +17,7 @@ This roadmap is the project status source of truth. Mark a feature complete only
 
 ## Phase 3 — First playable game
 - [x] Implement original size-estimation gameplay and puzzle data.
-- [ ] Add pointer/touch controls, keyboard support, answer reveal and scoring.
+- [x] Add pointer/touch controls, keyboard support, answer reveal and scoring; verify scoring logic with unit tests.
 - [x] Add deterministic five-round data and scoring logic.
 - [x] Add automated unit tests and verify the production build in CI.
 
