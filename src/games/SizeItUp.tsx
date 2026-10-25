@@ -21,7 +21,7 @@ export default function SizeItUp() {
   const dailyMode = searchParams.get("mode") === "daily";
   const today = localDateKey();
   const requestedDate = searchParams.get("date") ?? "";
-  const challengeDate = dailyMode && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate) ? requestedDate : today;
+  const challengeDate = dailyMode && isValidDateKey(requestedDate) ? requestedDate : today;
   const challengeId = dailyChallengeId(new Date(challengeDate + "T12:00:00"));
   const [saveNotice, setSaveNotice] = useState("");
   const [started, setStarted] = useState(false);
