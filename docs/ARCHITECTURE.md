@@ -2,15 +2,16 @@
 
 ## Current implementation
 
-Playverse is a client-rendered React + TypeScript application built with Vite and React Router. The interface uses responsive CSS and Lucide React icons. It currently includes Size It Up, Higher or Lower, a date-based daily challenge, a searchable archive, and a local progress dashboard.
+Playverse is a client-rendered React + TypeScript application built with Vite and React Router. The interface uses responsive CSS and Lucide React icons. It includes three playable games (Size It Up, Higher or Lower, and Daily Quiz), a date-based Size It Up challenge, a searchable local archive, and a local progress dashboard.
 
 ### Application layers
 
 - `src/App.tsx`: route definitions, shared navigation and page composition.
 - `src/games/`: game-specific UI and pure game rules.
+- `src/games/gameContract.ts`: shared catalog metadata for the playable games.
 - `src/pages/`: route-level screens, including archive and progress.
 - `src/lib/gameHistory.ts`: validated local browser storage for saved game results.
-- `src/lib/progress.ts`: deterministic statistics and achievement thresholds.
+- `src/lib/progress.ts`: deterministic statistics and achievement thresholds; estimation accuracy uses Size It Up rounds only.
 - `src/styles.css`: design tokens, shared styles, responsive layouts and visible keyboard focus.
 - `e2e/`: Playwright browser tests for navigation and complete game flows.
 - `src/**/*.test.ts`: Vitest unit tests for game logic, persistence and statistics.
@@ -63,6 +64,6 @@ A backend is justified when Playverse needs accounts, cross-device sync, shared 
 
 ## Current release boundary
 
-Implemented: two playable mini-games, deterministic daily estimation challenges, local history and replay, a progress dashboard, unit tests, browser end-to-end tests, and dependency auditing in CI.
+Implemented: three playable games, deterministic daily estimation challenges, local history and replay, a progress dashboard, unit tests, browser end-to-end tests, and dependency auditing in CI. Average estimation error is calculated from Size It Up only; scores from trivia and number-guessing games are excluded from that metric.
 
-Not implemented: user accounts, cloud sync, database persistence, public leaderboards or server-validated scores. GitHub Pages deployment configuration is committed, but live publication remains unverified until Pages is enabled and the deployment workflow succeeds.
+Not implemented: user accounts, cloud sync, database persistence, public leaderboards or server-validated scores. GitHub Pages deployment configuration is committed; direct client-side routes use a static SPA fallback in the deployment artifact.
