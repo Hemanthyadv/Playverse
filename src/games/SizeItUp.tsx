@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Ruler, Trophy } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-import { dailyChallengeId, localDateKey, saveGameResult, type SavedGame } from "../lib/gameHistory";
+import { dailyChallengeId, localDateKey, saveGameResult } from "../lib/gameHistory";
 
 type Puzzle = { id: number; object: string; clue: string; actual: number; unit: string; reference: string; referenceSize: number; shape: "bottle" | "book" | "ball" | "mug" | "plant" };
 type Result = { puzzle: Puzzle; guess: number; score: number; errorPercent: number };
@@ -19,16 +19,38 @@ function scoreGuess(guess: number, actual: number) {
   return { score: Math.max(0, Math.round(100 - errorPercent * 1.5)), errorPercent: Math.round(errorPercent) };
 }
 
-export default function SizeItUp() {\n  const [searchParams] = useSearchParams();\n  const dailyMode = searchParams.get("mode") === "daily";\n  const today = localDateKey();\n  const requestedDate = searchParams.get("date") ?? "";\n  const challengeDate = dailyMode && /^\\d{4}-\\d{2}-\\d{2}$/.test(requestedDate) ? requestedDate : today;\n  const challengeId = dailyChallengeId(new Date(challengeDate + "T12:00:00"));\n  const [saveNotice, setSaveNotice] = useState("");
+export default function SizeItUp() {
+  const [searchParams] = useSearchParams();
+  const dailyMode = searchParams.get("mode") === "daily";
+  const today = localDateKey();
+  const requestedDate = searchParams.get("date") ?? "";
+  const challengeDate = dailyMode && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate) ? requestedDate : today;
+  const challengeId = dailyChallengeId(new Date(challengeDate + "T12:00:00"));
+  const [saveNotice, setSaveNotice] = useState("");
   const [started, setStarted] = useState(false);
   const [roundIndex, setRoundIndex] = useState(0);
   const [guess, setGuess] = useState(20);
   const [results, setResults] = useState<Result[]>([]);
   const [revealed, setRevealed] = useState(false);
   const [finished, setFinished] = useState(false);
-  const dailyOffset = challengeDate.split("-").reduce((sum, part) => sum + Number(part), 0) % puzzles.length;\n  const roundPuzzles = dailyMode ? [...puzzles.slice(dailyOffset), ...puzzles.slice(0, dailyOffset)] : puzzles;\n  const puzzle = roundPuzzles[roundIndex];
+  const dailyOffset = challengeDate.split("-").reduce((sum, part) => sum + Number(part), 0) % puzzles.length;
+  const roundPuzzles = dailyMode ? [...puzzles.slice(dailyOffset), ...puzzles.slice(0, dailyOffset)] : puzzles;
+  const puzzle = roundPuzzles[roundIndex];
   const total = useMemo(() => results.reduce((sum, result) => sum + result.score, 0), [results]);
   const currentResult = results[roundIndex];
+  function persistResult() {
+    const saved = saveGameResult({
+      id: `size-it-up-${dailyMode ? challengeId : Date.now()}`,
+      challengeId: dailyMode ? challengeId : `practice-${Date.now()}`,
+      mode: dailyMode ? "daily" : "practice",
+      playedAt: new Date().toISOString(),
+      date: challengeDate,
+      totalScore: total,
+      maxScore: 500,
+      rounds: results.map(result => ({ object: result.puzzle.object, guess: result.guess, actual: result.puzzle.actual, score: result.score, errorPercent: result.errorPercent })),
+    });
+    setSaveNotice(saved.saved ? "Score saved to your local archive." : saved.reason === "already-played" ? "This daily challenge score was already saved on this device." : "Could not save locally. Check your browser storage settings.");
+  }
 
   function startGame() {
     setStarted(true); setRoundIndex(0); setGuess(20); setResults([]); setRevealed(false); setFinished(false); setSaveNotice("");
@@ -40,7 +62,7 @@ export default function SizeItUp() {\n  const [searchParams] = useSearchParams()
     setRevealed(true);
   }
   function nextRound() {
-    if (roundIndex === puzzles.length - 1) { setFinished(true); return; }
+    if (roundIndex === puzzles.length - 1) { setFinished(true); persistResult(); return; }
     setRoundIndex(index => index + 1);
     setGuess(20);
     setRevealed(false);
@@ -55,7 +77,7 @@ export default function SizeItUp() {\n  const [searchParams] = useSearchParams()
         <button className="primary-button game-start-button" onClick={startGame}>Start playing <ArrowRight size={16}/></button>
       </div>
     </section> : finished ? <section className="results-panel">
-      <div className="results-trophy"><Trophy size={31}/></div><div className="eyebrow">{dailyMode ? "DAILY CHALLENGE COMPLETE" : "GAME COMPLETE"}</div><h1>You sized it up.</h1><div className="final-score">{total}<span> / 500</span></div><p className="results-caption">{total >= 440 ? "Incredible eye. You have a real feel for scale." : total >= 340 ? "Great estimating. Your instincts are getting sharp." : total >= 220 ? "Not bad! A little practice makes a big difference." : "Every guess trains your eye. Ready for another go?"}</p>
+      <div className="results-trophy"><Trophy size={31}/></div><div className="eyebrow">{dailyMode ? "DAILY CHALLENGE COMPLETE" : "GAME COMPLETE"}</div><h1>You sized it up.</h1><div className="final-score">{total}<span> / 500</span></div><p className="results-caption">{saveNotice}</p><p className="results-caption">{total >= 440 ? "Incredible eye. You have a real feel for scale." : total >= 340 ? "Great estimating. Your instincts are getting sharp." : total >= 220 ? "Not bad! A little practice makes a big difference." : "Every guess trains your eye. Ready for another go?"}</p>
       <div className="result-list">{results.map((result,index)=><div className="result-row" key={result.puzzle.id}><span className="result-round">0{index+1}</span><span className="result-name">{result.puzzle.object}<small>Your guess: {result.guess} {result.puzzle.unit} · Actual: {result.puzzle.actual} {result.puzzle.unit}</small></span><strong>{result.score}<small>pts</small></strong></div>)}</div>
       <button className="primary-button game-start-button" onClick={startGame}><RotateCcw size={16}/> Play again</button>
     </section> : <section className="play-panel">
