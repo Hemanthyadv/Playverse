@@ -23,3 +23,5 @@ jobs:
         run: npm run build
       - name: Unit tests
         run: npm test
+      - name: Dependency security audit
+        run: npm audit --json
