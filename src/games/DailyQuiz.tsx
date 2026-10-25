@@ -49,8 +49,8 @@ export default function DailyQuiz() {
         maxScore: 100,
         rounds: nextAnswers.map((wasCorrect, roundIndex) => ({
           object: questions[roundIndex].question,
-          guess: wasCorrect ? questions[roundIndex].answer : "Incorrect answer",
-          actual: questions[roundIndex].answer,
+          guess: wasCorrect ? 1 : 0,
+          actual: 1,
           score: wasCorrect ? 20 : 0,
           errorPercent: wasCorrect ? 0 : 100,
         })),
