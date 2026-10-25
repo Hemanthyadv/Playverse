@@ -8,11 +8,11 @@ async function openMobileNavigationIfNeeded(page: Page) {
 test("navigation works on desktop and mobile", async ({ page }, testInfo) => {
   if (testInfo.project.name === "mobile-chromium") {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "domcontentloaded" });
     await page.getByRole("button", { name: "Open navigation" }).click();
     await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Progress" }).click();
   } else {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "domcontentloaded" });
     await page.getByRole("link", { name: "Games", exact: true }).click();
   }
 
@@ -21,7 +21,7 @@ test("navigation works on desktop and mobile", async ({ page }, testInfo) => {
 });
 
 test("Size It Up supports keyboard input, answer reveal, scoring and archive saving", async ({ page }) => {
-  await page.goto("/games/size-it-up");
+  await page.goto("/games/size-it-up", { waitUntil: "domcontentloaded" });
   await page.getByRole("button", { name: /Start playing/ }).click();
 
   const slider = page.getByRole("slider", { name: "Adjust your size estimate" });
@@ -45,7 +45,7 @@ test("Size It Up supports keyboard input, answer reveal, scoring and archive sav
 });
 
 test("Higher or Lower completes a game and saves it to the archive", async ({ page }) => {
-  await page.goto("/games/higher-or-lower");
+  await page.goto("/games/higher-or-lower", { waitUntil: "domcontentloaded" });
 
   for (let round = 0; round < 10; round += 1) {
     await page.getByRole("button", { name: /Higher/ }).click();
