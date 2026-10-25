@@ -10,10 +10,10 @@ This roadmap is the project status source of truth. Mark a feature complete only
 - [ ] Add automated test tooling and baseline checks.
 
 ## Phase 2 — Brand and interface
-- [ ] Refine design tokens and component conventions.
-- [ ] Add functional responsive navigation and real routes.
-- [ ] Add loading, empty, not-found and error states.
-- [ ] Verify keyboard navigation and small-screen layouts.
+- [x] Refine design tokens and component conventions.
+- [x] Add functional responsive navigation and real routes.
+- [x] Add empty and not-found states; loading/error states will be added where data services require them.
+- [ ] Verify keyboard navigation and small-screen layouts in a browser.
 
 ## Phase 3 — First playable game
 - [ ] Implement original size-estimation gameplay and data.
