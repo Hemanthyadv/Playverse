@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, type PointerEvent } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Ruler, Trophy } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { dailyChallengeId, isValidDateKey, localDateKey, saveGameResult } from "../lib/gameHistory";
@@ -28,7 +28,7 @@ export default function SizeItUp() {
   const [roundIndex, setRoundIndex] = useState(0);
   const [guess, setGuess] = useState(20);
   const dragStart = useRef<{ x: number; guess: number } | null>(null);
-  function startResize(event: React.PointerEvent<HTMLDivElement>) {
+  function startResize(event: PointerEvent<HTMLDivElement>) {
     if (revealed) return;
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -103,7 +103,7 @@ export default function SizeItUp() {
             <span className="scale-object-highlight" />
             {!revealed && <div className="scale-drag-handle" role="slider" tabIndex={0} aria-label="Drag to resize object" aria-valuemin={5} aria-valuemax={50} aria-valuenow={guess} onPointerDown={startResize} onPointerMove={moveResize} onPointerUp={endResize} onPointerCancel={endResize} onKeyDown={event => { if (event.key === "ArrowRight") setGuess(value => Math.min(50, value + 1)); if (event.key === "ArrowLeft") setGuess(value => Math.max(5, value - 1)); }}><span /></div>}
           </div>
-          <div className="scale-target-wrap"><span className="scale-target-label">MATCH THIS LENGTH</span><div className="scale-target" style={{ width: `${puzzle.actual * 1.8}%` }}><span className="target-tick start" /><span className="target-tick end" /></div></div>
+          <div className="scale-target-wrap"><span className="scale-target-label">MATCH THIS LENGTH</span><div className="scale-target" style={{ width: `${puzzle.actual * 2}%` }}><span className="target-tick start" /><span className="target-tick end" /></div></div>
           <div className="scale-axis"><span>0 cm</span><span>50 cm</span></div>
         </div>
         <div className="scale-instructions"><span className="scale-instruction-icon">↔</span><span>Drag the object's right edge, or use the slider below, to match the target.</span></div>
