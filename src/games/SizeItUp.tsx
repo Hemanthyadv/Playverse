@@ -115,7 +115,7 @@ export default function SizeItUp() {
     setSaveNotice(saved.saved ? "Score saved to your local archive." : saved.reason === "already-played" ? "This daily challenge score was already saved on this device." : "Could not save locally. Check your browser storage settings.");
   }
   function startGame() {
-    setStarted(true); setRoundIndex(0); setGuess(puzzles[0].referenceSize); setZoom(1); setTargetOffset(0);
+    setStarted(true); setRoundIndex(0); setGuess(roundPuzzles[0].referenceSize); setZoom(1); setTargetOffset(0);
     setResults([]); setRevealed(false); setFinished(false); setSaveNotice("");
   }
   function lockGuess() {
