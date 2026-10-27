@@ -33,7 +33,7 @@ test("Size It Up supports keyboard input, answer reveal, scoring and archive sav
 
   for (let round = 0; round < 4; round += 1) {
     await page.getByRole("button", { name: /Next comparison/ }).click();
-    await page.getByRole("button", { name: /Lock in estimate/ }).click();
+    await page.getByRole("button", { name: /Lock in my guess/ }).click();
   }
   await page.getByRole("button", { name: /See final results/ }).click();
 
