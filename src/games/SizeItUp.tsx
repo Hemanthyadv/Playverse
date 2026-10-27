@@ -96,17 +96,21 @@ export default function SizeItUp() {
       <div className="play-topline"><div><div className="eyebrow">SIZE IT UP · REGULAR</div><h1>Trust your eye<span className="lime-text">.</span></h1></div><div className="round-count">ROUND <strong>{roundIndex+1}</strong><span>/ {puzzles.length}</span></div></div>
       <div className="round-progress" aria-label={`Round ${roundIndex+1} of ${puzzles.length}`}><span style={{width:`${(roundIndex+1)/puzzles.length*100}%`}}/></div>
       <div className="score-strip"><span>YOUR SCORE</span><strong>{total}<small> / 500</small></strong></div>
-      <div className="scale-match-panel">
-        <div className="scale-match-heading"><div><span className="object-tag">MYSTERY OBJECT</span><h2>{puzzle.object}</h2><p>{puzzle.clue}</p></div><div className="scale-readout">{guess}<small> {puzzle.unit}</small></div></div>
-        <div className="scale-match-stage" aria-label={`Resize ${puzzle.object} to match the target outline`}>
-          <div className={`scale-match-object ${puzzle.shape}`} style={{ width: `${guess * 1.8}%` }}>
-            <span className="scale-object-highlight" />
-            {!revealed && <div className="scale-drag-handle" role="slider" tabIndex={0} aria-label="Drag to resize object" aria-valuemin={5} aria-valuemax={50} aria-valuenow={guess} onPointerDown={startResize} onPointerMove={moveResize} onPointerUp={endResize} onPointerCancel={endResize} onKeyDown={event => { if (event.key === "ArrowRight") setGuess(value => Math.min(50, value + 1)); if (event.key === "ArrowLeft") setGuess(value => Math.max(5, value - 1)); }}><span /></div>}
+      <div className="scale-match-panel reel-match-panel">
+        <div className="reel-match-topline"><span>SIZE IT UP</span><span>ROUND {roundIndex+1} / {puzzles.length}</span></div>
+        <div className="reel-match-stage" aria-label={`Resize ${puzzle.object} to match the blue target`}>
+          <div className={`reel-object ${puzzle.shape}`} style={{ width: `${guess / 50 * 92}%` }}>
+            <svg viewBox="0 0 400 90" preserveAspectRatio="none" role="img" aria-label={puzzle.object} className="reel-object-svg">
+              <path d="M8 42 L0 27 L42 36 L18 17 L77 33 C110 16 150 15 190 20 C242 22 285 17 326 30 C350 35 368 42 390 45 C366 51 350 60 325 64 C280 75 230 68 190 71 C145 77 104 66 77 57 L18 73 L42 54 L8 58 L27 47 Z" />
+              <path d="M90 34 C135 24 190 29 232 31" className="reel-fish-highlight"/>
+            </svg>
+            {!revealed && <div className="scale-drag-handle reel-drag-handle" role="slider" tabIndex={0} aria-label="Drag to resize object" aria-valuemin={5} aria-valuemax={50} aria-valuenow={guess} onPointerDown={startResize} onPointerMove={moveResize} onPointerUp={endResize} onPointerCancel={endResize} onKeyDown={event => { if (event.key === "ArrowRight") setGuess(value => Math.min(50, value + 1)); if (event.key === "ArrowLeft") setGuess(value => Math.max(5, value - 1)); }}><span /></div>}
           </div>
-          <div className="scale-target-wrap"><span className="scale-target-label">MATCH THIS LENGTH</span><div className="scale-target" style={{ width: `${puzzle.actual * 2}%` }}><span className="target-tick start" /><span className="target-tick end" /></div></div>
-          <div className="scale-axis"><span>0 cm</span><span>50 cm</span></div>
+          <div className="reel-target-row"><div className="reel-target" style={{ width: `${puzzle.actual / 50 * 92}%` }}><span className="reel-target-side left" /><span className="reel-target-side right" /></div></div>
+          <div className="reel-axis"><span>0</span><span>50 cm</span></div>
         </div>
-        <div className="scale-instructions"><span className="scale-instruction-icon">↔</span><span>Drag the object's right edge, or use the slider below, to match the target.</span></div>
+        <div className="reel-match-label"><span>{puzzle.object}</span><span className="reel-live-size">{guess} {puzzle.unit}</span></div>
+        <p className="reel-match-hint">Drag the edge of the red object to match the blue outline.</p>
       </div>
       {!revealed ? <div className="guess-controls"><div className="guess-label-row"><label htmlFor="size-guess">Fine-tune the length</label><output htmlFor="size-guess">{guess} <span>{puzzle.unit}</span></output></div><input id="size-guess" aria-label="Adjust your size estimate" className="size-slider" type="range" min="5" max="50" step="1" value={guess} onChange={event=>setGuess(Number(event.target.value))} style={{background: `linear-gradient(90deg, var(--lime) 0%, var(--lime) ${(guess-5)/45*100}%, #36373e ${(guess-5)/45*100}%, #36373e 100%)`}} aria-valuetext={`${guess} centimetres`}/><div className="slider-labels"><span>5 cm</span><span>50 cm</span></div><button className="primary-button submit-guess" onClick={lockGuess}>Lock in estimate <ArrowRight size={16}/></button></div> : <div className="reveal-panel" aria-live="polite"><div className="reveal-score"><span>YOUR ROUND SCORE</span><strong>{currentResult?.score ?? 0}<small> / 100</small></strong></div><div className="reveal-copy"><h3>The actual size is {puzzle.actual} {puzzle.unit}.</h3><p>You guessed {currentResult?.guess} {puzzle.unit}, which is about {currentResult?.errorPercent}% off.</p></div><button className="primary-button submit-guess" onClick={nextRound}>{roundIndex===puzzles.length-1 ? "See final results" : "Next object"} <ArrowRight size={16}/></button></div>}
       <p className="game-disclaimer"><Ruler size={13}/> Practice game: object measurements are illustrative estimates, not a precision reference.</p>
