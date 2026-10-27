@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, type PointerEvent } from "react";
-import { ArrowLeft, ArrowRight, Check, Minus, Plus, RotateCcw, Ruler, Trophy, ZoomIn, ZoomOut, Maximize2, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Minus, Plus, RotateCcw, Ruler, Trophy, Maximize2, ExternalLink } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { dailyChallengeId, isValidDateKey, localDateKey, saveGameResult } from "../lib/gameHistory";
 import { scoreGuess } from "./sizeItUpLogic";
@@ -66,7 +66,7 @@ export default function SizeItUp() {
   const puzzle = roundPuzzles[roundIndex];
   const total = useMemo(() => results.reduce((sum, result) => sum + result.score, 0), [results]);
   const currentResult = results[roundIndex];
-  const guessRange = { min: Math.max(puzzle.referenceSize * 0.1, 0.01), max: puzzle.referenceSize * 3 };
+  const guessRange = { min: Math.max(puzzle.referenceSize * 0.1, 0.01), max: Math.max(puzzle.referenceSize * 3, puzzle.actual * 1.1) };
   const axisPixels = 132 * zoom;
   const guessPixels = Math.min(330, Math.max(12, axisPixels * guess / puzzle.referenceSize));
   const refAxisPixels = axisPixels;
