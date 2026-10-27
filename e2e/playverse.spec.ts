@@ -22,17 +22,17 @@ test("navigation works on desktop and mobile", async ({ page }, testInfo) => {
 
 test("Size It Up supports keyboard input, answer reveal, scoring and archive saving", async ({ page }) => {
   await page.goto("/games/size-it-up", { waitUntil: "domcontentloaded" });
-  await page.getByRole("button", { name: /Start playing/ }).click();
+  await page.getByRole("button", { name: /Let’s play/ }).click();
 
-  const slider = page.getByRole("slider", { name: "Adjust your size estimate" });
+  const slider = page.getByRole("slider", { name: "Your estimate" });
   await slider.focus();
   await page.keyboard.press("ArrowRight");
-  await page.getByRole("button", { name: /Lock in estimate/ }).click();
-  await expect(page.getByText(/The actual size is/)).toBeVisible();
+  await page.getByRole("button", { name: /Lock in my guess/ }).click();
+  await expect(page.getByText(/The actual (length|height|diameter) is/)).toBeVisible();
   await expect(page.getByText("YOUR ROUND SCORE")).toBeVisible();
 
   for (let round = 0; round < 4; round += 1) {
-    await page.getByRole("button", { name: /Next object/ }).click();
+    await page.getByRole("button", { name: /Next comparison/ }).click();
     await page.getByRole("button", { name: /Lock in estimate/ }).click();
   }
   await page.getByRole("button", { name: /See final results/ }).click();
